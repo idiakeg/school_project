@@ -1,0 +1,89 @@
+:root {
+	--pale-green: hsl(148, 38%, 91%);
+	--green: hsl(169, 85%, 33%);
+	--dark-teal: hsl(187, 24%, 22%);
+	--light-teal: hsl(186, 15%, 59%);
+	--red: hsl(0, 66%, 54%);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.container {
+	width: min(900px, 90%);
+	margin-inline: auto;
+}
+
+.teacher_form_container {
+	/* border: 1px solid red; */
+}
+
+.span_all {
+	grid-column: 1 / -1;
+}
+
+input,
+textarea {
+	padding: 0.75em 1.3em;
+	border-radius: 6px;
+	border: 1px solid var(--dark-teal);
+
+	&:focus-visible {
+		outline-color: var(--green);
+	}
+}
+
+textarea {
+	resize: block;
+	height: 4lh; /* this specifies that the height of the textarea should be 4 lines of text. if you declared box-sizing to border box, you'd get a weird situation, to fix, change the box sizing of the textarea to cntent box or make the height 4lh plus the top and bottom padding you included for the text box */
+}
+
+/* -------- Form styles --------- */
+
+form {
+	/* background-color: powderblue; */
+	display: grid;
+	gap: 1rem;
+
+	@media (width > 600px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+.form_group {
+	display: grid;
+}
+
+.form_group:has([required]) label {
+	display: flex;
+	gap: 2px; /* you could also use 1ch. essentially, 1ch resolives to be the length of one character, typically, the width of the number/letter 0*/
+	&::after {
+		content: "*";
+		color: red;
+	}
+}
+
+label {
+	display: block;
+}
+
+.form_btn {
+	padding: 0.75em 1.5em;
+	color: whitesmoke;
+	border: 0;
+	background-color: var(--green);
+	border-radius: 6px;
+	transition: background-color 0.1s ease-in-out;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: bold;
+	/* letter-spacing: 0.3ch; */
+
+	&:hover,
+	&:focus-visible {
+		background-color: var(--dark-teal);
+	}
+}
