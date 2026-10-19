@@ -17,38 +17,60 @@
 		</header>
 		<section>
 			<div class="teacher_form_container container">
-				<form>
+				<form id="student_form" novalidate>
 					<div class="form_group">
 						<label for="fname">First Name</label>
 						<input type="text" id="fname" name="first_name" required />
+						<span class="error_message"></span>
 					</div>
 
 					<div class="form_group">
 						<label for="lname">Last Name</label>
 						<input type="text" id="lname" name="last_name" required />
+						<span class="error_message"></span>
 					</div>
 
 					<div class="form_group">
-						<label for="lname">Last Name</label>
-						<input type="text" id="lname" name="last_name" required />
-					</div>
-
-					<div class="form_group">
-						<label for="national_id">Contact</label>
-						<input type="number" id="national_id" name="national_id" required />
+						<label for="contact">Phone Number</label>
+						<input
+							type="tel"
+							id="contact"
+							name="contact"
+							pattern="[0-9]{11}"
+							maxlength="11"
+							minlength="11"
+							inputmode="numeric"
+							required
+						/>
+						<span
+							data-error="Phone number must be 11 characters long."
+							class="error_message"
+						></span>
 					</div>
 
 					<div class="form_group">
 						<label for="dob">DOB</label>
-						<input type="date" id="dob" name="date_of_birth" required />
+						<input
+							type="date"
+							id="dob"
+							name="date_of_birth"
+							max="2012-10-20"
+							required
+						/>
+						<!-- you have to be at least 14 to enrol in the school -->
+						<span
+							data-error="You have to be at least 14 to enroll"
+							class="error_message"
+						></span>
 					</div>
 
 					<div class="form_group">
 						<label for="career">Career</label>
 						<input type="text" id="career" name="career" required />
+						<span class="error_message"></span>
 					</div>
 
-					<div class="form_group span_all">
+					<div class="form_group">
 						<label for="reason_career">Reason for Career</label>
 						<textarea name="reason_for_career" id="reason_career"></textarea>
 					</div>
@@ -57,5 +79,7 @@
 				</form>
 			</div>
 		</section>
+
+		<script src="./form__error.js"></script>
 	</body>
 </html>

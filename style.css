@@ -36,6 +36,12 @@ textarea {
 	}
 }
 
+input:user-invalid,
+input:user-invalid:focus-visible {
+	border-color: var(--red);
+	outline-color: var(--red);
+}
+
 textarea {
 	resize: block;
 	height: 4lh; /* this specifies that the height of the textarea should be 4 lines of text. if you declared box-sizing to border box, you'd get a weird situation, to fix, change the box sizing of the textarea to cntent box or make the height 4lh plus the top and bottom padding you included for the text box */
@@ -55,6 +61,7 @@ form {
 
 .form_group {
 	display: grid;
+	grid-auto-rows: min-content;
 }
 
 .form_group:has([required]) label {
@@ -86,4 +93,14 @@ label {
 	&:focus-visible {
 		background-color: var(--dark-teal);
 	}
+}
+
+.error_message {
+	color: var(--red);
+	margin-top: 0.2rem;
+	font-size: 0.8rem;
+}
+
+.error_message:empty {
+	display: none;
 }
