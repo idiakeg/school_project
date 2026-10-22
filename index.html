@@ -10,14 +10,15 @@
 	<body>
 		<header>
 			<section class="banner"></section>
-			<section class="teacher_or_student">
-				<button>teacher</button>
-				<button>student</button>
+			<section class="toggle_btns">
+				<button data-active-btn="false" id="teacher_btn">teacher</button>
+				<button data-active-btn="true" id="student_btn">student</button>
 			</section>
 		</header>
 		<section>
-			<div class="teacher_form_container container">
-				<form id="student_form" novalidate>
+			<div class="form_container container">
+				<form data-form-hidden="false" id="student_form" novalidate>
+					<h2 class="span_all">Student Form</h2>
 					<div class="form_group">
 						<label for="fname">First Name</label>
 						<input type="text" id="fname" name="first_name" required />
@@ -77,9 +78,13 @@
 
 					<button class="span_all form_btn">Submit</button>
 				</form>
+				<form id="teacher_form" data-form-hidden="true">
+					<h2>teacher form</h2>
+				</form>
 			</div>
 		</section>
 
 		<script src="./form__error.js"></script>
+		<script src="./toggleUser.js"></script>
 	</body>
 </html>

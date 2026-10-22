@@ -37,3 +37,11 @@ studentForm.addEventListener("submit", (e) => {
 		studentForm.querySelector(":invalid").focus();
 	}
 });
+
+/*
+const formData = new FormData(studentForm);
+
+const studentData = Object.fromEntries(formData.entries());
+
+console.log(studentData);
+ */
