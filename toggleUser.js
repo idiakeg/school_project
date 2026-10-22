@@ -1,18 +1,30 @@
 const toggle_btns = document.querySelectorAll(".toggle_btns button");
 const teacherForm = document.getElementById("teacher_form");
+const teacherCardContainer = document.getElementById("teacher_cards_container");
+const studentForm = document.getElementById("student_form");
+const studentCardsContainer = document.getElementById(
+	"student_cards_container"
+);
 
 toggle_btns.forEach((btn) => {
 	const flag = btn.id === "student_btn";
 	btn.addEventListener("click", () => {
 		// toggle which of the form is visible to the user
 		teacherForm.dataset.formHidden = flag;
+		teacherCardContainer.dataset.cardContainerHidden = flag;
 		studentForm.dataset.formHidden = !flag;
+		studentCardsContainer.dataset.cardContainerHidden = !flag;
 
 		toggle_btns.forEach((toggleBtn) => {
 			// Remove the activeBtn from both buttons
 			toggleBtn.dataset.activeBtn = "false";
 			// add the avtiveBtn to the desired button
 			btn.dataset.activeBtn = "true";
+		});
+
+		console.log("dateset for card containers: ", {
+			teacher: teacherCardContainer.dataset,
+			student: studentCardsContainer.dataset,
 		});
 	});
 });

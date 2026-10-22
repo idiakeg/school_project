@@ -6,16 +6,7 @@ const firstName = document.getElementById("fname");
 
 let studentList = [];
 
-function showOrHideStudents() {
-	if (studentList.length < 1) {
-		studentCardsContainer.classList.add("hidden");
-	} else {
-		studentCardsContainer.classList.remove("hidden");
-	}
-}
-
-showOrHideStudents();
-
+// ----- Validate input fields
 const validateField = (field) => {
 	const errorEl = field.parentElement.querySelector(".error_message");
 
@@ -59,10 +50,7 @@ studentForm.addEventListener("submit", (e) => {
 		};
 
 		studentList.push(studentData);
-		showOrHideStudents();
 		generateCard(studentData);
-		console.log("submitting");
-		console.log("", studentList);
 		studentForm.reset();
 	} else {
 		// focus on the first input that is invalid, prompting the user to fill it up
@@ -70,10 +58,23 @@ studentForm.addEventListener("submit", (e) => {
 	}
 });
 
-const generateCard = (studentInfo) => {
+// ------ Generate a card
+const generateCard = () => {
+	if (studentList.length < 1) {
+		console.log("No student yet.");
+		return;
+	}
+
 	studentCardsContainer.innerHTML = "";
 
+	const h2El = document.createElement("h2");
+	h2El.classList.add("span_all");
+	h2El.textContent = "Student List";
+
+	studentCardsContainer.appendChild(h2El);
+
 	studentList.forEach(({ Name, Phone, DOB, Career, Reason, id }) => {
+		// Remember to include the id to help with deleting and editing the card.
 		const divEl = document.createElement("div");
 		divEl.classList.add("student_card");
 		divEl.innerHTML = `
@@ -88,5 +89,31 @@ const generateCard = (studentInfo) => {
 				`;
 
 		studentCardsContainer.appendChild(divEl);
+
+		Toast("student added 👏");
 	});
 };
+
+// ------ create toast
+
+const Toast = (message) => {
+	const toastContainer = document.getElementById("toast-container");
+	// if a toast exists, clear it.
+	const existingToast = toastContainer.querySelector(".toast");
+	if (existingToast) {
+		existingToast.remove();
+	}
+	const toast = document.createElement("div");
+	toast.className = "toast";
+	toast.textContent = message;
+
+	// Append to container
+	toastContainer.appendChild(toast);
+
+	// Remove toast automatically after 3 seconds
+	setTimeout(() => {
+		toast.remove();
+	}, 3000);
+};
+
+// showOrHideStudents();

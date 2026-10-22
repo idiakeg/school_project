@@ -82,15 +82,37 @@
 					<h2>teacher form</h2>
 				</form>
 			</div>
-			<section class="student_container py-2">
+			<section class="student_and_teacher_container py-2">
+				<!-- ---- student card container ------- -->
 				<div
+					data-card-container-hidden="false"
 					id="student_cards_container"
 					class="student_cards_container container"
 				>
-					<h2 class="span_all">Student List</h2>
+					<!-- <h2 class="span_all">Student List</h2>
 					<div class="student_card">
 						<span>Name:</span> <span>james john</span> <span>Phone No:</span
 						><span>12345678900</span> <span>DOB:</span> <span>2/6/95</span>
+						
+						<hr class="span_all" />
+						<div class="card_action_btns span_all">
+							<button id="edit_btn" data-btn-function="edit">edit</button>
+							<button id="delete_btn" data-btn-function="delete">delete</button>
+						</div>
+					</div> -->
+				</div>
+
+				<!-- ---- teacher card container ------- -->
+				<div
+					data-card-container-hidden="true"
+					id="teacher_cards_container"
+					class="teacher_cards_container container"
+				>
+					<h2 class="span_all">Teachers List</h2>
+					<div class="teacher_card">
+						<span>Name:</span> <span>teacher Micheal</span>
+						<span>Phone No:</span><span>12345678900</span> <span>DOB:</span>
+						<span>2/6/95</span>
 						<!-- <span>Career</span><span>Pilot</span> <span>Reason for choice</span
 						><span class="truncate_word"
 							>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quae
@@ -103,9 +125,10 @@
 							<button id="delete_btn" data-btn-function="delete">delete</button>
 						</div>
 					</div>
-					<div class="student_card">
-						<span>Name:</span> <span>james john</span> <span>Phone No:</span
-						><span>12345678900</span> <span>DOB:</span> <span>2/6/95</span>
+					<div class="teacher_card">
+						<span>Name:</span> <span>teacher Micheal</span>
+						<span>Phone No:</span><span>12345678900</span> <span>DOB:</span>
+						<span>2/6/95</span>
 						<!-- <span>Career</span><span>Pilot</span> <span>Reason for choice</span
 						><span class="truncate_word"
 							>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quae
@@ -118,9 +141,10 @@
 							<button id="delete_btn" data-btn-function="delete">delete</button>
 						</div>
 					</div>
-					<div class="student_card">
-						<span>Name:</span> <span>james john</span> <span>Phone No:</span
-						><span>12345678900</span> <span>DOB:</span> <span>2/6/95</span>
+					<div class="teacher_card">
+						<span>Name:</span> <span>teacher Micheal</span>
+						<span>Phone No:</span><span>12345678900</span> <span>DOB:</span>
+						<span>2/6/95</span>
 						<!-- <span>Career</span><span>Pilot</span> <span>Reason for choice</span
 						><span class="truncate_word"
 							>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quae
@@ -137,7 +161,10 @@
 			</section>
 		</section>
 
-		<script src="./app.js"></script>
+		<!-- Custom toast -->
+		<div id="toast-container" class="toast-container"></div>
+
+		<script type="module" src="./app.js"></script>
 		<script src="./toggleUser.js"></script>
 	</body>
 </html>

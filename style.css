@@ -66,6 +66,10 @@ textarea {
 	display: none;
 }
 
+.teacher_cards_container[data-card-container-hidden="true"] {
+	display: none;
+}
+
 button {
 	border: 0;
 	cursor: pointer;
@@ -171,7 +175,8 @@ label {
 	display: none;
 }
 
-.student_cards_container {
+.student_cards_container,
+.teacher_cards_container {
 	display: grid;
 	gap: 1.5rem;
 	@media (width > 600px) {
@@ -179,7 +184,8 @@ label {
 	}
 }
 
-.student_card {
+.student_card,
+.teacher_card {
 	display: grid;
 	grid-template-columns: max-content 1fr;
 	gap: 0.5rem 1rem;
@@ -232,3 +238,36 @@ label {
 	overflow: hidden; 
 	text-overflow: ellipsis;
 } */
+
+/* --------- Toast styles ------------- */
+
+.toast-container {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 9999;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.toast {
+	background: #22c55e;
+	color: white;
+	padding: 12px 24px;
+	border-radius: 8px;
+	font-family: sans-serif;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateX(120%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
