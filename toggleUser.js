@@ -16,3 +16,18 @@ toggle_btns.forEach((btn) => {
 		});
 	});
 });
+
+// ----- to handle the sticky header on scroll
+
+const primaryHeader = document.querySelector("header");
+const scrollWatcher = document.createElement("div");
+
+scrollWatcher.setAttribute("data-scroll-watcher", "");
+
+primaryHeader.before(scrollWatcher);
+
+const navScrollObserver = new IntersectionObserver((entries) => {
+	primaryHeader.classList.toggle("sticking", !entries[0].isIntersecting);
+}, {});
+
+navScrollObserver.observe(scrollWatcher);

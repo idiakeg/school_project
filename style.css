@@ -12,6 +12,11 @@ input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
+body {
+	margin: 0;
+	padding: 0;
+}
+
 .container {
 	width: min(900px, 90%);
 	margin-inline: auto;
@@ -19,10 +24,16 @@ input::-webkit-inner-spin-button {
 
 .form_container {
 	/* border: 1px solid red; */
+	padding: 2rem 0;
 }
 
 .span_all {
 	grid-column: 1 / -1;
+}
+
+h1,
+h2 {
+	margin: 0;
 }
 
 input,
@@ -47,15 +58,42 @@ textarea {
 	height: 4lh; /* this specifies that the height of the textarea should be 4 lines of text. if you declared box-sizing to border box, you'd get a weird situation, to fix, change the box sizing of the textarea to cntent box or make the height 4lh plus the top and bottom padding you included for the text box */
 }
 
+[data-form-hidden="true"] {
+	display: none;
+}
+
+button {
+	border: 0;
+	cursor: pointer;
+}
+
+/* ----- Header -------- */
+header {
+	/* border: 1px solid red; */
+	padding: 2rem 0;
+	position: sticky;
+	top: 0;
+
+	h1 {
+		text-align: center;
+	}
+
+	&.sticking {
+		background-color: var(--pale-green);
+	}
+}
+
 .toggle_btns button[data-active-btn="true"] {
 	background-color: green;
-	border: 0;
 	padding: 0.3em 1em;
 	color: white;
 }
 
-[data-form-hidden="true"] {
-	display: none;
+.toggle_btns {
+	display: flex;
+	justify-content: center;
+	gap: 1.5rem;
+	margin-top: 1.3rem;
 }
 
 /* -------- Form styles --------- */
