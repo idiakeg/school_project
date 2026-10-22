@@ -16,7 +16,7 @@
 			</section>
 		</header>
 		<section>
-			<div class="form_container container">
+			<div class="form_container py-2 container">
 				<form data-form-hidden="false" id="student_form" novalidate>
 					<h2 class="span_all">Student Form</h2>
 					<div class="form_group">
@@ -82,14 +82,62 @@
 					<h2>teacher form</h2>
 				</form>
 			</div>
-			<section class="student_container">
-				<div class="student_cards_container">
-					<div class="student_card"></div>
+			<section class="student_container py-2">
+				<div
+					id="student_cards_container"
+					class="student_cards_container container"
+				>
+					<h2 class="span_all">Student List</h2>
+					<div class="student_card">
+						<span>Name:</span> <span>james john</span> <span>Phone No:</span
+						><span>12345678900</span> <span>DOB:</span> <span>2/6/95</span>
+						<!-- <span>Career</span><span>Pilot</span> <span>Reason for choice</span
+						><span class="truncate_word"
+							>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quae
+							temporibus explicabo quis neque eos quia rem? Esse, similique
+							magnam. Quibusdam esse repellat ipsa ratione!</span
+						> -->
+						<hr class="span_all" />
+						<div class="card_action_btns span_all">
+							<button id="edit_btn" data-btn-function="edit">edit</button>
+							<button id="delete_btn" data-btn-function="delete">delete</button>
+						</div>
+					</div>
+					<div class="student_card">
+						<span>Name:</span> <span>james john</span> <span>Phone No:</span
+						><span>12345678900</span> <span>DOB:</span> <span>2/6/95</span>
+						<!-- <span>Career</span><span>Pilot</span> <span>Reason for choice</span
+						><span class="truncate_word"
+							>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quae
+							temporibus explicabo quis neque eos quia rem? Esse, similique
+							magnam. Quibusdam esse repellat ipsa ratione!</span
+						> -->
+						<hr class="span_all" />
+						<div class="card_action_btns span_all">
+							<button id="edit_btn" data-btn-function="edit">edit</button>
+							<button id="delete_btn" data-btn-function="delete">delete</button>
+						</div>
+					</div>
+					<div class="student_card">
+						<span>Name:</span> <span>james john</span> <span>Phone No:</span
+						><span>12345678900</span> <span>DOB:</span> <span>2/6/95</span>
+						<!-- <span>Career</span><span>Pilot</span> <span>Reason for choice</span
+						><span class="truncate_word"
+							>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est quae
+							temporibus explicabo quis neque eos quia rem? Esse, similique
+							magnam. Quibusdam esse repellat ipsa ratione!</span
+						> -->
+						<hr class="span_all" />
+						<div class="card_action_btns span_all">
+							<button id="edit_btn" data-btn-function="edit">edit</button>
+							<button id="delete_btn" data-btn-function="delete">delete</button>
+						</div>
+					</div>
 				</div>
 			</section>
 		</section>
 
-		<script src="./form__error.js"></script>
+		<script src="./app.js"></script>
 		<script src="./toggleUser.js"></script>
 	</body>
 </html>
