@@ -3,6 +3,7 @@ const studentCardsContainer = document.getElementById(
 	"student_cards_container"
 );
 const firstName = document.getElementById("fname");
+const editStudentModal = document.getElementById("EditStudentModal");
 
 let studentList = [];
 
@@ -50,7 +51,7 @@ studentForm.addEventListener("submit", (e) => {
 		};
 
 		studentList.push(studentData);
-		generateCard(studentData);
+		generateCard(studentList, "student added 👏", "success");
 		studentForm.reset();
 	} else {
 		// focus on the first input that is invalid, prompting the user to fill it up
@@ -59,13 +60,14 @@ studentForm.addEventListener("submit", (e) => {
 });
 
 // ------ Generate a card
-const generateCard = () => {
-	if (studentList.length < 1) {
-		console.log("No student yet.");
+const generateCard = (arr, toastMessage, toastMsgBg) => {
+	studentCardsContainer.innerHTML = "";
+
+	if (arr.length < 1) {
+		Toast("student deleted.");
+		// console.log("No student yet.");
 		return;
 	}
-
-	studentCardsContainer.innerHTML = "";
 
 	const h2El = document.createElement("h2");
 	h2El.classList.add("span_all");
@@ -73,7 +75,7 @@ const generateCard = () => {
 
 	studentCardsContainer.appendChild(h2El);
 
-	studentList.forEach(({ Name, Phone, DOB, Career, Reason, id }) => {
+	arr.forEach(({ Name, Phone, DOB, Career, Reason, id }) => {
 		// Remember to include the id to help with deleting and editing the card.
 		const divEl = document.createElement("div");
 		divEl.classList.add("student_card");
@@ -82,21 +84,40 @@ const generateCard = () => {
 						><span>${Phone}</span> <span>DOB:</span> <span>${DOB}</span>
 						<span>Career</span><span>${Career}</span> 
 						<hr class="span_all" />
-						<div class="card_action_btns span_all">
-							<button id="edit_btn" data-btn-function="edit">edit</button>
-							<button id="delete_btn" data-btn-function="delete">delete</button>
+						<div data-id='${id}' class="card_action_btns span_all">
+							<button class="edit_btn" data-btn-function="edit">edit</button>
+							<button class="delete_btn" data-btn-function="delete">delete</button>
 						</div>
 				`;
 
 		studentCardsContainer.appendChild(divEl);
+	});
+	Toast(toastMessage, toastMsgBg);
+	const deleteBtns = document.querySelectorAll(".delete_btn");
+	const editBtns = document.querySelectorAll(".edit_btn");
 
-		Toast("student added 👏");
+	Array.from(deleteBtns).forEach((deleteBtn) => {
+		deleteBtn.addEventListener("click", (e) => {
+			const idToBeDeleted = Number(
+				e.target.closest(".card_action_btns").dataset.id
+			);
+			deleteStudent(idToBeDeleted);
+		});
+	});
+
+	Array.from(editBtns).forEach((editBtn) => {
+		editBtn.addEventListener("click", (e) => {
+			const idToBeDeleted = Number(
+				e.target.closest(".card_action_btns").dataset.id
+			);
+			editStudent(idToBeDeleted);
+		});
 	});
 };
 
 // ------ create toast
 
-const Toast = (message) => {
+const Toast = (message, flag) => {
 	const toastContainer = document.getElementById("toast-container");
 	// if a toast exists, clear it.
 	const existingToast = toastContainer.querySelector(".toast");
@@ -106,6 +127,7 @@ const Toast = (message) => {
 	const toast = document.createElement("div");
 	toast.className = "toast";
 	toast.textContent = message;
+	toast.style.backgroundColor = flag ? "#22c55e" : "red";
 
 	// Append to container
 	toastContainer.appendChild(toast);
@@ -115,5 +137,15 @@ const Toast = (message) => {
 		toast.remove();
 	}, 3000);
 };
+// ------- Delete student
+const deleteStudent = (identifier) => {
+	const newStudentList = studentList.filter(({ id }) => id !== identifier);
+	studentList = newStudentList;
+	generateCard(studentList, "student deleted.");
+};
 
-// showOrHideStudents();
+// ------- Edit student detail
+const editStudent = (identifier) => {
+	console.log("edit button has been clicked.", identifier);
+	editStudentModal.showModal();
+};
