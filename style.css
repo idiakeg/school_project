@@ -271,3 +271,18 @@ label {
 		opacity: 1;
 	}
 }
+/* --------- Dialog/Modal styles */
+dialog {
+	position: relative;
+	border: none;
+	border-radius: 8px;
+	margin: auto;
+	padding: 24px;
+	width: min(700px, 80%);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(4px);
+}

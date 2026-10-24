@@ -166,12 +166,68 @@
 
 		<!-- Edit Modal -->
 		<dialog id="EditStudentModal">
-			<div class="modal_content dflex fcol aic">
-				<h2>Edit Todo</h2>
-				<div class="dflex fcol edit_modal_content">
-					<input id="user_edit_input" type="text" placeholder="edit item ..." />
-					<button id="edit_todo_btn" type="submit">edit</button>
-				</div>
+			<div class="modal_content">
+				<form id="edit_student_form" novalidate>
+					<h2 class="span_all">Student Form</h2>
+					<div class="form_group">
+						<label for="fname">First Name</label>
+						<input type="text" id="fname" name="first_name" required />
+						<span class="error_message"></span>
+					</div>
+
+					<div class="form_group">
+						<label for="lname">Last Name</label>
+						<input type="text" id="lname" name="last_name" required />
+						<span class="error_message"></span>
+					</div>
+
+					<div class="form_group">
+						<label for="contact">Phone Number</label>
+						<input
+							type="tel"
+							id="contact"
+							name="contact"
+							pattern="[0-9]{11}"
+							maxlength="11"
+							minlength="11"
+							inputmode="numeric"
+							required
+						/>
+						<span
+							data-error="Phone number must be 11 characters long."
+							class="error_message"
+						></span>
+					</div>
+
+					<div class="form_group">
+						<label for="dob">DOB</label>
+						<input
+							type="date"
+							id="dob"
+							name="date_of_birth"
+							max="2012-10-20"
+							required
+						/>
+						<!-- you have to be at least 14 to enrol in the school -->
+						<span
+							data-error="You have to be at least 14 to enroll"
+							class="error_message"
+						></span>
+					</div>
+
+					<div class="form_group">
+						<label for="career">Career</label>
+						<input type="text" id="career" name="career" required />
+						<span class="error_message"></span>
+					</div>
+
+					<div class="form_group">
+						<label for="reason_career">Reason for Career</label>
+						<textarea name="reason_for_career" id="reason_career"></textarea>
+					</div>
+
+					<button class="span_all form_btn">Submit</button>
+				</form>
 			</div>
 		</dialog>
 
