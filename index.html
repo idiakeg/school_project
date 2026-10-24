@@ -17,6 +17,7 @@
 		</header>
 		<section>
 			<div class="form_container py-2 container">
+				<!-- ----- student form ------- -->
 				<form data-form-hidden="false" id="student_form" novalidate>
 					<h2 class="span_all">Student Form</h2>
 					<div class="form_group">
@@ -78,8 +79,67 @@
 
 					<button class="span_all form_btn">Submit</button>
 				</form>
-				<form id="teacher_form" data-form-hidden="true">
-					<h2>teacher form</h2>
+				<!-- ----- teacher form ------- -->
+				<form id="teacher_form" data-form-hidden="true" novalidate>
+					<h2 class="span_all">Teacher Form</h2>
+					<div class="form_group">
+						<label for="fname">First Name</label>
+						<input type="text" id="fname" name="first_name" required />
+						<span class="error_message"></span>
+					</div>
+
+					<div class="form_group">
+						<label for="lname">Last Name</label>
+						<input type="text" id="lname" name="last_name" required />
+						<span class="error_message"></span>
+					</div>
+
+					<div class="form_group">
+						<label for="contact">Phone Number</label>
+						<input
+							type="tel"
+							id="contact"
+							name="contact"
+							pattern="[0-9]{11}"
+							maxlength="11"
+							minlength="11"
+							inputmode="numeric"
+							required
+						/>
+						<span
+							data-error="Phone number must be 11 characters long."
+							class="error_message"
+						></span>
+					</div>
+
+					<div class="form_group">
+						<label for="dob">DOB</label>
+						<input
+							type="date"
+							id="dob"
+							name="date_of_birth"
+							max="2001-10-20"
+							required
+						/>
+						<!-- you have to be at least 25 to enrol as a teacher in the school -->
+						<span
+							data-error="You have to be at least 25 to enroll as a teacher"
+							class="error_message"
+						></span>
+					</div>
+
+					<div class="form_group">
+						<label for="pay">Desired Monthly Pay</label>
+						<input type="number" id="pay" name="capayreer" required />
+						<span class="error_message"></span>
+					</div>
+
+					<div class="form_group">
+						<label for="motivation">Motivation</label>
+						<textarea name="motivation" id="motivation"></textarea>
+					</div>
+
+					<button class="span_all form_btn">Submit</button>
 				</form>
 			</div>
 			<section class="student_and_teacher_container py-2">
