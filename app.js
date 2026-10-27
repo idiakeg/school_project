@@ -1,4 +1,5 @@
 const studentForm = document.getElementById("student_form");
+const teacherForm = document.getElementById("teacher_form");
 const studentCardsContainer = document.getElementById(
 	"student_cards_container"
 );
@@ -7,6 +8,7 @@ const editStudentModal = document.getElementById("EditStudentModal");
 const editStudentForm = document.getElementById("edit_student_form");
 
 let studentList = [];
+let teacherList = [];
 
 // ----- Validate input fields
 const validateField = (field) => {
@@ -29,6 +31,11 @@ studentForm.addEventListener("submit", (e) => {
 	validateForm(studentForm);
 });
 
+teacherForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+	validateForm(teacherForm);
+});
+
 // ------ Validate form
 const validateForm = (formToValidate) => {
 	let isValid = true;
@@ -42,6 +49,14 @@ const validateForm = (formToValidate) => {
 		}
 	});
 
+	// const amount = 1500500.75;
+
+	// Create the Naira formatter
+	// const nairaFormatter = new Intl.NumberFormat("en-NG", {
+	// 	style: "currency",
+	// 	currency: "NGN",
+	// });
+
 	if (isValid) {
 		const formData = new FormData(formToValidate);
 
@@ -53,17 +68,22 @@ const validateForm = (formToValidate) => {
 			contact: rawData.contact,
 			date_of_birth: rawData.date_of_birth,
 			career: rawData.career,
+			pay: rawData.pay,
 			reason_for_career: rawData.reason_for_career,
 			Name: `${rawData.first_name} ${rawData.last_name}`,
 		};
 
-		studentList.push(data);
+		formToValidate === studentForm
+			? studentList.push(data)
+			: teacherList.push(data);
 		generateCard(
-			studentList,
-			"student added 👏",
+			formToValidate === studentForm ? studentList : teacherList,
+			formToValidate === studentForm ? "student added 👏" : "teacher added 👏",
 			"success",
-			"Student List",
-			studentCardsContainer
+			formToValidate === studentForm ? "Student List" : "Teacher List",
+			formToValidate === studentForm
+				? studentCardsContainer
+				: teacherCardContainer
 		);
 		formToValidate.reset();
 	} else {
@@ -103,7 +123,11 @@ const generateCard = (
 			divEl.innerHTML = `
 					<span>Name:</span> <span>${Name}</span> <span>Phone No:</span
 						><span>${contact}</span> <span>DOB:</span> <span>${date_of_birth}</span>
-						<span>Career</span><span>${career}</span> 
+						${
+							arr === teacherList
+								? `<span>Desired Pay:</span> <span>${pay}</span>`
+								: `<span>Career:</span><span>${career}</span>`
+						} 
 						<hr class="span_all" />
 						<div data-id='${id}' class="card_action_btns span_all">
 							<button class="edit_btn" data-btn-function="edit">edit</button>
