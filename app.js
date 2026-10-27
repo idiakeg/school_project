@@ -49,13 +49,11 @@ const validateForm = (formToValidate) => {
 		}
 	});
 
-	// const amount = 1500500.75;
-
-	// Create the Naira formatter
-	// const nairaFormatter = new Intl.NumberFormat("en-NG", {
-	// 	style: "currency",
-	// 	currency: "NGN",
-	// });
+	// ------- Create the Naira formatter
+	const nairaFormatter = new Intl.NumberFormat("en-NG", {
+		style: "currency",
+		currency: "NGN",
+	});
 
 	if (isValid) {
 		const formData = new FormData(formToValidate);
@@ -68,10 +66,12 @@ const validateForm = (formToValidate) => {
 			contact: rawData.contact,
 			date_of_birth: rawData.date_of_birth,
 			career: rawData.career,
-			pay: rawData.pay,
+			pay: nairaFormatter.format(Number(rawData.pay)),
 			reason_for_career: rawData.reason_for_career,
 			Name: `${rawData.first_name} ${rawData.last_name}`,
 		};
+
+		console.log(data);
 
 		formToValidate === studentForm
 			? studentList.push(data)
@@ -116,7 +116,7 @@ const generateCard = (
 	Container.appendChild(h2El);
 
 	arr.forEach(
-		({ Name, contact, date_of_birth, career, reason_for_career, id }) => {
+		({ Name, contact, date_of_birth, career, reason_for_career, id, pay }) => {
 			// Remember to include the id to help with deleting and editing the card.
 			const divEl = document.createElement("div");
 			divEl.classList.add("student_card");
