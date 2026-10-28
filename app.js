@@ -26,6 +26,8 @@ const validateField = (field) => {
 	return true;
 };
 
+// TODO: IMPLEMENT EDIT AND DELETE FUNCTIONALITY
+
 studentForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 	validateForm(studentForm);
@@ -185,15 +187,28 @@ const Toast = (message, flag) => {
 };
 // ------- Delete student
 const deleteStudent = (identifier) => {
-	const newStudentList = studentList.filter(({ id }) => id !== identifier);
-	studentList = newStudentList;
-	generateCard(
-		studentList,
-		"student deleted.",
-		"fail",
-		studentList,
-		studentCardsContainer
-	);
+	const isTeacherActive = teacherForm.dataset.formHidden;
+	if (isTeacherActive === "true") {
+		const newStudentList = studentList.filter(({ id }) => id !== identifier);
+		studentList = newStudentList;
+		generateCard(
+			studentList,
+			"student deleted.",
+			"fail",
+			"Student List",
+			studentCardsContainer
+		);
+	} else {
+		const newTeacherList = teacherList.filter(({ id }) => id !== identifier);
+		teacherList = newTeacherList;
+		generateCard(
+			teacherList,
+			"teacher deleted.",
+			"fail",
+			"Teacher List",
+			teacherCardContainer
+		);
+	}
 };
 
 // ------- Edit student detail

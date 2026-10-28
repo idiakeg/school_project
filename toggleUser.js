@@ -21,11 +21,6 @@ toggle_btns.forEach((btn) => {
 			// add the avtiveBtn to the desired button
 			btn.dataset.activeBtn = "true";
 		});
-
-		console.log("dateset for card containers: ", {
-			teacher: teacherCardContainer.dataset,
-			student: studentCardsContainer.dataset,
-		});
 	});
 });
 
