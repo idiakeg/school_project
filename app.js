@@ -6,9 +6,17 @@ const studentCardsContainer = document.getElementById(
 const firstName = document.getElementById("fname");
 const editStudentModal = document.getElementById("EditStudentModal");
 const editStudentForm = document.getElementById("edit_student_form");
+const editTeacherModal = document.getElementById("EditTeacherModal");
+const editTeacherForm = document.getElementById("edit_teacher_form");
 
 let studentList = [];
 let teacherList = [];
+
+// ------- Create the Naira formatter
+const nairaFormatter = new Intl.NumberFormat("en-NG", {
+	style: "currency",
+	currency: "NGN",
+});
 
 // ----- Validate input fields
 const validateField = (field) => {
@@ -51,12 +59,6 @@ const validateForm = (formToValidate) => {
 		}
 	});
 
-	// ------- Create the Naira formatter
-	const nairaFormatter = new Intl.NumberFormat("en-NG", {
-		style: "currency",
-		currency: "NGN",
-	});
-
 	if (isValid) {
 		const formData = new FormData(formToValidate);
 
@@ -68,12 +70,12 @@ const validateForm = (formToValidate) => {
 			contact: rawData.contact,
 			date_of_birth: rawData.date_of_birth,
 			career: rawData.career,
-			pay: nairaFormatter.format(Number(rawData.pay)),
+			pay: rawData.pay,
+			motivation: rawData.motivation,
 			reason_for_career: rawData.reason_for_career,
 			Name: `${rawData.first_name} ${rawData.last_name}`,
+			desired_payment: nairaFormatter.format(Number(rawData.pay)),
 		};
-
-		console.log(data);
 
 		formToValidate === studentForm
 			? studentList.push(data)
@@ -118,7 +120,16 @@ const generateCard = (
 	Container.appendChild(h2El);
 
 	arr.forEach(
-		({ Name, contact, date_of_birth, career, reason_for_career, id, pay }) => {
+		({
+			Name,
+			contact,
+			date_of_birth,
+			career,
+			reason_for_career,
+			id,
+			pay,
+			desired_payment,
+		}) => {
 			// Remember to include the id to help with deleting and editing the card.
 			const divEl = document.createElement("div");
 			divEl.classList.add("student_card");
@@ -127,7 +138,7 @@ const generateCard = (
 						><span>${contact}</span> <span>DOB:</span> <span>${date_of_birth}</span>
 						${
 							arr === teacherList
-								? `<span>Desired Pay:</span> <span>${pay}</span>`
+								? `<span>Desired Pay:</span> <span>${desired_payment}</span>`
 								: `<span>Career:</span><span>${career}</span>`
 						} 
 						<hr class="span_all" />
@@ -213,30 +224,53 @@ const deleteStudent = (identifier) => {
 
 // ------- Edit student detail
 const editStudent = (identifier) => {
-	// find the item to be edited
-	let studentToBeEdited = studentList.find((a) => a.id === identifier);
-	const fields = editStudentForm.querySelectorAll("input, textarea");
-	fields.forEach((field) => {
-		let fieldName = field.name;
-		// populate the edit field with the required information
-		if (studentToBeEdited[fieldName] !== undefined) {
-			field.value = studentToBeEdited[fieldName];
-		}
-	});
-	editStudentModal.showModal();
-	// put the id ont the form so it is visible to the next function when editing
-	editStudentForm.dataset.editingId = identifier;
+	const isTeacherActive = teacherForm.dataset.formHidden;
+	if (isTeacherActive === "true") {
+		// find the item to be edited
+		let studentToBeEdited = studentList.find((a) => a.id === identifier);
+		const fields = editStudentForm.querySelectorAll("input, textarea");
+		fields.forEach((field) => {
+			let fieldName = field.name;
+			// populate the edit field with the required information
+			if (studentToBeEdited[fieldName] !== undefined) {
+				field.value = studentToBeEdited[fieldName];
+			}
+		});
+		editStudentModal.showModal();
+		// put the id ont the form so it is visible to the next function when editing
+		editStudentForm.dataset.editingId = identifier;
+	} else {
+		// find the item to be edited
+		let teacherToBeEdited = teacherList.find((a) => a.id === identifier);
+		const fields = editTeacherForm.querySelectorAll("input, textarea");
+		fields.forEach((field) => {
+			let fieldName = field.name;
+			// populate the edit field with the required information
+			if (teacherToBeEdited[fieldName] !== undefined) {
+				field.value = teacherToBeEdited[fieldName];
+			}
+		});
+		editTeacherModal.showModal();
+
+		// put the id ont the form so it is visible to the next function when editing
+		editTeacherForm.dataset.editingId = identifier;
+	}
 };
 
-editStudentForm.addEventListener("submit", (e) => {
-	e.preventDefault();
-	const editingId = Number(editStudentForm.dataset.editingId);
+// -------- Editing action
+const editAction = (
+	formToBeEdited,
+	arr,
+	Modal,
+	successMsg,
+	h2Msg,
+	cardContainer
+) => {
+	const editingId = Number(formToBeEdited.dataset.editingId);
 	// find the index of the item to be edited.
-	const studentIndex = studentList.findIndex(
-		(student) => student.id === editingId
-	);
+	const studentIndex = arr.findIndex((student) => student.id === editingId);
 	let isValid = true;
-	const fields = editStudentForm.querySelectorAll("input, textarea");
+	const fields = formToBeEdited.querySelectorAll("input, textarea");
 	fields.forEach((field) => {
 		const fieldValidity = validateField(field);
 		if (!fieldValidity) {
@@ -244,11 +278,11 @@ editStudentForm.addEventListener("submit", (e) => {
 		}
 	});
 	if (isValid) {
-		const formData = new FormData(editStudentForm);
+		const formData = new FormData(formToBeEdited);
 
 		const rawData = Object.fromEntries(formData.entries());
 		// update the particular student information using the index.
-		studentList[studentIndex] = {
+		arr[studentIndex] = {
 			id: new Date().getUTCMilliseconds(),
 			first_name: rawData.first_name,
 			last_name: rawData.last_name,
@@ -256,25 +290,46 @@ editStudentForm.addEventListener("submit", (e) => {
 			date_of_birth: rawData.date_of_birth,
 			career: rawData.career,
 			reason_for_career: rawData.reason_for_career,
+			motivation: rawData.motivation,
+			pay: rawData.pay,
 			Name: `${rawData.first_name} ${rawData.last_name}`,
+			desired_payment: nairaFormatter.format(Number(rawData.pay)),
 		};
-		editStudentModal.close();
+		Modal.close();
 
-		generateCard(
-			studentList,
-			"student info updated 👏",
-			"success",
-			"Student List",
-			studentCardsContainer
-		);
+		generateCard(arr, successMsg, "success", h2Msg, cardContainer);
 		// clear the form
-		editStudentForm.reset();
+		formToBeEdited.reset();
 		// remove whatever error message we might have had when editing the student info.
 		fields.forEach((field) => {
 			const errorEl = field.parentElement.querySelector(".error_message");
 			if (errorEl) errorEl.textContent = "";
 		});
 	} else {
-		editStudentForm.querySelector(":invalid").focus();
+		formToBeEdited.querySelector(":invalid").focus();
 	}
+};
+
+editStudentForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+	editAction(
+		editStudentForm,
+		studentList,
+		editStudentModal,
+		"student info updated 👏",
+		"Student List",
+		studentCardsContainer
+	);
+});
+
+editTeacherForm.addEventListener("submit", (e) => {
+	e.preventDefault();
+	editAction(
+		editTeacherForm,
+		teacherList,
+		editTeacherModal,
+		"teacher info updated 👏",
+		"Teacher List",
+		teacherCardContainer
+	);
 });
